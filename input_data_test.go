@@ -23,28 +23,28 @@ func TestIntersection(t *testing.T) {
 }
 
 func TestFindWordBegninnings(t *testing.T) {
-	assert.Equal(t, []int{0, 24, 34, 40, 49, 64}, find_word_beginnings(rows[0]))
-	assert.Equal(t, []int{0, 24, 34, 49, 51, 57, 64}, find_word_beginnings(rows[1]))
+	assert.Equal(t, []int{0, 24, 34, 40, 49, 64}, findWordBeginnings(rows[0]))
+	assert.Equal(t, []int{0, 24, 34, 49, 51, 57, 64}, findWordBeginnings(rows[1]))
 }
 
 func TestCalculateCoordinates(t *testing.T) {
-	assert.Equal(t, []int{0, 24, 34, 49, 64}, calculate_coordinates(rows))
+	assert.Equal(t, []int{0, 24, 34, 49, 64}, getColumnIndices(rows))
 }
 
 func TestSafeSubstr(t *testing.T) {
 	assert.Equal(t, "cd", "abcdefg"[2:4])
-	assert.Equal(t, "cd", safe_substr("abcdefg", 2, 4))
-	assert.Equal(t, "cde", safe_substr("abcdefg", 2, 5))
-	assert.Equal(t, "cdef", safe_substr("abcdefg", 2, 6))
-	assert.Equal(t, "cdefg", safe_substr("abcdefg", 2, 7))
-	assert.Equal(t, "cdefg", safe_substr("abcdefg", 2, 8))
-	assert.Equal(t, "bcdefg", safe_substr("abcdefg", 1, 8))
-	assert.Equal(t, "abcdefg", safe_substr("abcdefg", 0, 8))
-	assert.Equal(t, "cdefg", safe_substr("abcdefg", 2))
-	assert.Equal(t, "defg", safe_substr("abcdefg", 3))
-	assert.Equal(t, "efg", safe_substr("abcdefg", 4))
-	assert.Equal(t, "fg", safe_substr("abcdefg", 5))
-	assert.Equal(t, "g", safe_substr("abcdefg", 6))
-	assert.Equal(t, "", safe_substr("abcdefg", 7))
-	assert.Equal(t, "", safe_substr("abcdefg", 8))
+	assert.Equal(t, "cd", safeSubstr("abcdefg", 2, 4))
+	assert.Equal(t, "cde", safeSubstr("abcdefg", 2, 5))
+	assert.Equal(t, "cdef", safeSubstr("abcdefg", 2, 6))
+	assert.Equal(t, "cdefg", safeSubstr("abcdefg", 2, 7))
+	assert.Equal(t, "cdefg", safeSubstr("abcdefg", 2, 8))
+	assert.Equal(t, "bcdefg", safeSubstr("abcdefg", 1, 8))
+	assert.Equal(t, "abcdefg", safeSubstr("abcdefg", 0, 8))
+	assert.Equal(t, "cdefg", safeSubstr("abcdefg", 2))
+	assert.Equal(t, "defg", safeSubstr("abcdefg", 3))
+	assert.Equal(t, "efg", safeSubstr("abcdefg", 4))
+	assert.Equal(t, "fg", safeSubstr("abcdefg", 5))
+	assert.Equal(t, "g", safeSubstr("abcdefg", 6))
+	assert.Equal(t, "", safeSubstr("abcdefg", 7))
+	assert.Equal(t, "", safeSubstr("abcdefg", 8))
 }

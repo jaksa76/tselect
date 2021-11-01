@@ -47,7 +47,7 @@ func main() {
 	}
 
 	inputData := NewInputData(os.Stdin)
-	for inputData.Scan() {
+	for inputData.HasMoreLines() {
 		if !inputData.IsEmptyRow() {
 			values := select_columns(columns, inputData)
 			fmt.Println(strings.Join(values, ""))
