@@ -30,3 +30,21 @@ func TestFindWordBegninnings(t *testing.T) {
 func TestCalculateCoordinates(t *testing.T) {
 	assert.Equal(t, []int{0, 24, 34, 49, 64}, calculate_coordinates(rows))
 }
+
+func TestSafeSubstr(t *testing.T) {
+	assert.Equal(t, "cd", "abcdefg"[2:4])
+	assert.Equal(t, "cd", safe_substr("abcdefg", 2, 4))
+	assert.Equal(t, "cde", safe_substr("abcdefg", 2, 5))
+	assert.Equal(t, "cdef", safe_substr("abcdefg", 2, 6))
+	assert.Equal(t, "cdefg", safe_substr("abcdefg", 2, 7))
+	assert.Equal(t, "cdefg", safe_substr("abcdefg", 2, 8))
+	assert.Equal(t, "bcdefg", safe_substr("abcdefg", 1, 8))
+	assert.Equal(t, "abcdefg", safe_substr("abcdefg", 0, 8))
+	assert.Equal(t, "cdefg", safe_substr("abcdefg", 2))
+	assert.Equal(t, "defg", safe_substr("abcdefg", 3))
+	assert.Equal(t, "efg", safe_substr("abcdefg", 4))
+	assert.Equal(t, "fg", safe_substr("abcdefg", 5))
+	assert.Equal(t, "g", safe_substr("abcdefg", 6))
+	assert.Equal(t, "", safe_substr("abcdefg", 7))
+	assert.Equal(t, "", safe_substr("abcdefg", 8))
+}

@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"regexp"
 )
@@ -86,14 +87,44 @@ func (i *InputData) get_curent_row() string {
 	return row
 }
 
+func safe_substr(s string, bounds ...int) string {
+	if len(bounds) < 1 || len(bounds) > 2 {
+		panic(fmt.Errorf("invalid bounds"))
+	}
+
+	start := bounds[0]
+	if start > len(s) {
+		return ""
+	}
+
+	if len(bounds) == 1 {
+		return s[start:]
+	}
+
+	end := bounds[1]
+	if end > len(s) {
+		return s[start:]
+	}
+
+	return s[start:end]
+}
+
 func (i *InputData) GetColumn(n int) string {
 	n = n - 1
 	row := i.get_curent_row()
-	if n < len(i.column_coordinates)-1 {
-		return row[i.column_coordinates[n]:i.column_coordinates[n+1]]
-	} else {
-		return row[i.column_coordinates[n]:]
+
+	lastCol := len(i.column_coordinates) - 1
+	if n > lastCol {
+		return ""
 	}
+
+	start := i.column_coordinates[n]
+	if n == lastCol {
+		return safe_substr(row, start)
+	}
+
+	end := i.column_coordinates[n+1]
+	return safe_substr(row, start, end)
 }
 
 func (i *InputData) IsEmptyRow() bool {
