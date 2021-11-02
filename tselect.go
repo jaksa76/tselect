@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"regexp"
@@ -24,7 +25,7 @@ func get_columns_to_select(args []string) ([]int, error) {
 			}
 			columns = append(columns, n)
 		} else {
-			return nil, fmt.Errorf("Cannot determin column argument %s", arg)
+			return nil, fmt.Errorf("Cannot determine column argument %s", arg)
 		}
 	}
 	return columns, nil
@@ -40,13 +41,22 @@ func select_columns(columns []int, text *InputData) []string {
 
 func main() {
 	args := os.Args[1:]
+	scanner := bufio.NewScanner(os.Stdin)
+
+	if strings.HasPrefix(args[0], "-s") {
+		linesToSkip, _ := strconv.Atoi(args[0][2:])
+		for i := 0; i < linesToSkip; i++ {
+			scanner.Scan()
+		}
+		args = args[1:]
+	}
 	columns, err := get_columns_to_select(args)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	inputData := NewInputData(os.Stdin)
+	inputData := NewInputData(scanner)
 	for inputData.HasMoreLines() {
 		if !inputData.IsEmptyRow() {
 			values := select_columns(columns, inputData)

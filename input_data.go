@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"os"
 	"regexp"
 )
 
@@ -15,8 +14,7 @@ type InputData struct {
 	text_from_scanner  string
 }
 
-func NewInputData(in *os.File) *InputData {
-	scanner := bufio.NewScanner(in)
+func NewInputData(scanner *bufio.Scanner) *InputData {
 	initial_rows := readLines(scanner, 10)
 	return &InputData{scanner, getColumnIndices(initial_rows), initial_rows, 0, ""}
 }
@@ -92,8 +90,6 @@ func findWordBeginnings(s string) []int {
 
 func getColumnIndices(initial_rows []string) []int {
 	coords := findWordBeginnings(initial_rows[0])
-	fmt.Println(initial_rows[0])
-	fmt.Println(coords)
 	for i, row := range initial_rows {
 		if i > 0 {
 			newCoords := findWordBeginnings(row)
