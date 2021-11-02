@@ -1,4 +1,4 @@
-module me/jaksa/tselect
+module github.com/jaksa76/tselect
 
 go 1.17
 
